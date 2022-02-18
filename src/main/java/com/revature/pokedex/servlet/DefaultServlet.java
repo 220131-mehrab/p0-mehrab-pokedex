@@ -23,6 +23,8 @@ public class DefaultServlet extends HttpServlet {
             return;
         }
 
+        String mimeType = getServletContext().getMimeType(fileName);
+        resp.setContentType(mimeType);
         IOUtils.copy(file, resp.getOutputStream());
     }
 }

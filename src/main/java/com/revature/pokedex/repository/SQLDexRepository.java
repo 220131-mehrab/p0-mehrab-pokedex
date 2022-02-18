@@ -1,6 +1,7 @@
 package com.revature.pokedex.repository;
 
 import com.revature.pokedex.domain.Pokemon;
+import com.revature.pokedex.domain.Types;
 
 import java.sql.*;
 import java.util.List;
@@ -20,8 +21,8 @@ public class SQLDexRepository implements DexRepository{
                 result = Pokemon.of()
                         .id(resultSet.getInt("id"))
                         .name(resultSet.getString("name"))
-                        .type1(resultSet.getString("type1"))
-                        .type2(resultSet.getString("type2"));
+                        .type1(new Types(1, resultSet.getString("type1")))
+                        .type2(new Types(2, resultSet.getString("type2")));
             }
         } catch (SQLException e) {
             e.printStackTrace();

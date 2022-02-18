@@ -1,24 +1,21 @@
 package com.revature.pokedex.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Pokemon implements Comparable<Pokemon>{
+    @JsonProperty("id")
     private int dexId;
     private String name;
-    private String type1;
-    private String type2;
+    private List<Types> types;
 
-    public Pokemon() {}
-
-    public Pokemon (String name) {
-        this(-1, name, "", "");
-    }
-
-    public Pokemon(int dexId, String name, String type1, String type2) {
-        this.dexId = dexId;
-        this.name = name;
-        this.type1 = type1;
-        this.type2 = type2;
+    private Pokemon() {
+        this.types = new ArrayList<>();
     }
 
     public static Pokemon of() {
@@ -35,39 +32,47 @@ public class Pokemon implements Comparable<Pokemon>{
         return this;
     }
 
-    public Pokemon type1(String type1) {
-        this.type1 = type1;
+    public Pokemon type1(Types type1) {
+        types.add(type1);
         return this;
     }
 
-    public Pokemon type2(String type2) {
-        this.type2 = type2;
+    public Pokemon type2(Types type2) {
+        types.add(type2);
         return this;
-    }
-
-    public String getName() {
-        return this.name;
     }
 
     public int getDexId() {
         return dexId;
     }
 
-    public String getType1() {
-        return type1;
+    public void setDexId(int dexId) {
+        this.dexId = dexId;
     }
 
-    public String getType2() {
-        return type2;
+    public String getName() {
+        return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Types> getTypes() {
+        return types;
+    }
+
+    public void setTypes(List<Types> types) {
+        this.types = types;
+    }
+
 
     @Override
     public String toString() {
         return "Pokemon{" +
                 "dexId=" + dexId +
                 ", name='" + name + '\'' +
-                ", type1='" + type1 + '\'' +
-                ", type2='" + type2 + '\'' +
+                ", types=" + types +
                 '}';
     }
 
@@ -76,12 +81,12 @@ public class Pokemon implements Comparable<Pokemon>{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pokemon pokemon = (Pokemon) o;
-        return dexId == pokemon.dexId && Objects.equals(name, pokemon.name) && Objects.equals(type1, pokemon.type1) && Objects.equals(type2, pokemon.type2);
+        return dexId == pokemon.dexId && name.equals(pokemon.name) && types.equals(pokemon.types);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(dexId, name, type1, type2);
+        return Objects.hash(dexId, name, types);
     }
 
     @Override

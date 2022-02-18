@@ -1,7 +1,6 @@
 package com.revature.pokedex.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.pokedex.domain.PokeAPImon;
 import com.revature.pokedex.domain.Pokemon;
 
 import java.io.IOException;
@@ -24,7 +23,7 @@ public class PokeAPIDexRepository implements DexRepository{
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             String httpBody = response.body();
-            result = mapper.readValue(httpBody, PokeAPImon.class);
+            result = mapper.readValue(httpBody, Pokemon.class);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

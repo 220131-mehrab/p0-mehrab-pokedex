@@ -1,15 +1,18 @@
-package com.revature.pokedex.servlet;
+package com.revature.pokedex.service;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import com.revature.pokedex.domain.Pokemon;
+import com.revature.pokedex.repository.DexRepository;
 
-import java.io.IOException;
+import java.util.List;
 
-public class SearchFormService extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+public class PokedexService {
+    private DexRepository dexRepository;
+
+    public PokedexService(DexRepository dexRepository) {
+        this.dexRepository = dexRepository;
+    }
+
+    public String searchForm() {
         String HTMLForm = "<Html>\n" +
                 "<Head>\n" +
                 "    <Title>Search Pokedex" +
@@ -25,6 +28,14 @@ public class SearchFormService extends HttpServlet {
                 "</form>\n" +
                 "</Body>\n" +
                 "</Html>";
-        resp.getWriter().println(HTMLForm);
+        return HTMLForm;
+    }
+
+    public List<Pokemon> getPokemon() {
+        return dexRepository.getPocketMonsters();
+    }
+
+    public Pokemon getPokemon(String userInput) {
+        return dexRepository.getPokemon(userInput.trim().toLowerCase());
     }
 }

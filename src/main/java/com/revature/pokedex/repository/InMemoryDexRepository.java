@@ -1,6 +1,7 @@
 package com.revature.pokedex.repository;
 
 import com.revature.pokedex.domain.Pokemon;
+import com.revature.pokedex.domain.Types;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ public class InMemoryDexRepository implements DexRepository{
 
     public InMemoryDexRepository() {
         pocketMonsters = new ArrayList<>();
-        pocketMonsters.add(Pokemon.of().id(1).name("Bulbasaur").type1("Grass").type2("Poison"));
+        pocketMonsters.add(Pokemon.of().id(1).name("Bulbasaur").type1(new Types(1, "Grass")).type2(new Types(2, "Poison")));
     }
 
     public List<Pokemon> getPocketMonsters() {
