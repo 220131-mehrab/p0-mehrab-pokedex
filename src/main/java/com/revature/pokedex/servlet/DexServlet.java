@@ -1,7 +1,6 @@
 package com.revature.pokedex.servlet;
 
 import com.revature.pokedex.domain.Pokemon;
-import com.revature.pokedex.repository.DexRepository;
 import com.revature.pokedex.service.PokedexService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -30,6 +29,7 @@ public class DexServlet extends HttpServlet {
         } else {
             results.addAll(service.getPokemon());
         }
-        resp.getWriter().println(results);
+        for (Pokemon p : results)
+            resp.getWriter().println(p + "<br/>");
     }
 }

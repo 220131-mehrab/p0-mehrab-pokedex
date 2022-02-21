@@ -1,18 +1,11 @@
 package com.revature.pokedex.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Pokemon implements Comparable<Pokemon>{
-    @JsonProperty("id")
     private int dexId;
     private String name;
-    private List<Types> types;
+    private List<Type> types;
 
     private Pokemon() {
         this.types = new ArrayList<>();
@@ -32,13 +25,15 @@ public class Pokemon implements Comparable<Pokemon>{
         return this;
     }
 
-    public Pokemon type1(Types type1) {
-        types.add(type1);
+    public Pokemon type1(String type1) {
+        types.add(0, Type.valueOf(type1.toUpperCase()));
         return this;
     }
 
-    public Pokemon type2(Types type2) {
-        types.add(type2);
+    public Pokemon type2(String type2) {
+        try {
+            types.add(1, Type.valueOf(type2.toUpperCase()));
+        } catch (IllegalArgumentException ex) {}
         return this;
     }
 
@@ -58,14 +53,13 @@ public class Pokemon implements Comparable<Pokemon>{
         this.name = name;
     }
 
-    public List<Types> getTypes() {
+    public List<Type> getTypes() {
         return types;
     }
 
-    public void setTypes(List<Types> types) {
+    public void setTypes(List<Type> types) {
         this.types = types;
     }
-
 
     @Override
     public String toString() {

@@ -1,8 +1,6 @@
 package com.revature.pokedex.repository;
 
 import com.revature.pokedex.domain.Pokemon;
-import com.revature.pokedex.domain.Type;
-import com.revature.pokedex.domain.Types;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -33,12 +31,13 @@ public class CSVDexRepository implements DexRepository{
     private void load() {
         Scanner scanner = new Scanner(this.file);
         scanner.useDelimiter("\n");
+        scanner.next();
         while (scanner.hasNext()) {
             String[] pokeColumns = scanner.next().split(",");
             Pokemon temp = Pokemon.of().name(pokeColumns[2])
                     .id(Integer.parseInt(pokeColumns[1]))
-                    .type1(new Types(1, Type.valueOf(pokeColumns[3].toUpperCase())))
-                    .type2(new Types(2, Type.valueOf(pokeColumns[4].toUpperCase())));
+                    .type1(pokeColumns[3])
+                    .type2(pokeColumns[4]);
 
             this.pocketMonsters.add(temp);
         }
@@ -51,7 +50,7 @@ public class CSVDexRepository implements DexRepository{
     public Pokemon getPokemon(String name) {
         Pokemon result = null;
         for (Pokemon pokemon : this.pocketMonsters) {
-            if (pokemon.getName().equals(name)) {
+            if (pokemon.getName().equalsIgnoreCase(name)) {
                 result = pokemon;
             }
         }

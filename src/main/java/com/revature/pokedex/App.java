@@ -1,5 +1,6 @@
 package com.revature.pokedex;
 
+import com.revature.pokedex.repository.CSVDexRepository;
 import com.revature.pokedex.repository.DexRepository;
 import com.revature.pokedex.repository.SQLDexRepository;
 import com.revature.pokedex.servlet.DefaultServlet;
@@ -15,9 +16,9 @@ public class App {
 
         // Creating a object graph with dependency injections
         DexRepository dexRepository;
-        //dexRepository = new CSVDexRepository("pokedex.csv");
+        dexRepository = new CSVDexRepository("pokedex.csv");
         //dexRepository = new InMemoryDexRepository();
-        dexRepository = new SQLDexRepository();
+        //dexRepository = new SQLDexRepository();
         PokedexService pokedexService = new PokedexService(dexRepository);
 
         Tomcat server = new Tomcat();
